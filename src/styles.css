@@ -1,1 +1,44 @@
-/* You can add global styles to this file, and also import other style files */
+body{
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #404c51;
+}
+
+label{
+  font-weight: bold;
+}
+
+body a{
+  text-decoration: none;
+  color: #404c51;
+}
+
+.col-center button{
+  margin-right: 0.5em;
+}
+
+.costum-container{
+  padding: 10px;
+}
+
+.inputFull {
+  display: block;
+  width: 100%;
+}
+
+.col-valor {
+  text-align: right;
+}
+
+.col-center {
+  width: 105px;
+  text-align: center;
+}
+
+@media(min-width: 960px){
+  .costum-container{
+    width: 960px;
+    margin: 0 auto;
+  }
+}

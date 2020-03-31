@@ -1,0 +1,71 @@
+<div class="costum-container">
+
+  <div class="p-grid p-dir-col">
+    <div class="p-col">
+      <h1>Lançamentos</h1>
+    </div>
+
+    <div class="p-col">
+      <label>Decrição</label>
+      <input type="text" pInputText class="inputFull">
+    </div>
+
+    <div class="p-col">
+      <label style="display: block;">Vencimento</label>
+      <input type="text" pInputText>
+      <label style="margin: 0 .5em;">até</label>
+      <input type="text" pInputText>
+    </div>
+
+    <div class="p-col-2">
+      <button pButton type="button" label="Pesquisar"></button>
+
+    </div>
+
+    <div class="p-col-12">
+      <p-table [value]="lancamentos" [autoLayout]="true" [paginator]="true" [rows]="4" [responsive]="true">
+        <ng-template pTemplate="header">
+          <tr>
+            <th>Pessoa</th>
+            <th>Descrição</th>
+            <th>Vencimento</th>
+            <th>Pagamento</th>
+            <th>Valor</th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-lancamento>
+          <tr>
+            <td>
+              <span class="ui-column-title">Pessoas</span>
+              {{lancamento.pessoa}}
+            </td>
+            <td>
+              <span class="ui-column-title">Descrição</span>
+              {{lancamento.descricao}} </td>
+            <td class="col-center">
+              <span class="ui-column-title">Vencimento</span>
+              {{lancamento.dataVencimento| date:"dd/MM/yyyy"}}
+            </td>
+            <td class="col-center">
+              <span class="ui-column-title">Pagamento</span>
+              {{lancamento.dataPagamento| date:"dd/MM/yyyy"}}
+            </td>
+            <td class="col-valor">
+              <span class="ui-column-title">Valor</span>
+              <span [style.color]="lancamento.tipo === 'DESPESA' ? 'red' : 'blue'">{{lancamento.valor | currency:'BRL':true:'1.2-2'}}</span>
+            </td>
+            <td class="col-center">
+              <button pButton icon="fa fa-pencil" pTooltip="Editar" tooltipPosition="top"> </button>
+              <button pButton icon="fa fa-trash" pTooltip="Excluir" tooltipPosition="top"> </button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <div class="p-col-12">
+      <a pButton label="Novo Lançamento"></a>
+    </div>
+  </div>
+</div>
