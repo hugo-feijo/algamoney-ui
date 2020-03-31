@@ -4,7 +4,7 @@ import { FormControl } from '@angular/forms';
 @Component({
   selector: 'app-message',
   template: `
-    <div *ngIf="temErro()" class="ui-message ui-message-error" style="width: 100%; margin-top: .1em;">
+    <div *ngIf="temErro()" class="ui-message ui-message-error" style="width: 100%; margin-top: .2em;">
         {{text}}
     </div>
   `,

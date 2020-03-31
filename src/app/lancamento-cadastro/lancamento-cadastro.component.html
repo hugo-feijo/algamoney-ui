@@ -1,6 +1,6 @@
 <div class="costum-container">
   <h1>Novo lançamento</h1>
-  <form action="" class="form-novo-lancamento">
+  <form #cadastroLancamento="ngForm" class="form-novo-lancamento">
 
     <div class="tipo">
       <p-selectButton [options]="tipoLancamento" #tipo></p-selectButton>
@@ -8,7 +8,9 @@
 
     <div class="vencimento">
       <label>Vencimento</label>
-      <p-calendar [locale]="br" showButtonBar="true" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-calendar>
+      <p-calendar [locale]="br" showButtonBar="true" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}" ngModel required name="vencimento" #vencimento="ngModel"></p-calendar>
+
+      <app-message [control]="vencimento" error="required" text="Informe um vencimento"></app-message>
     </div>
 
     <div class="recebimento">
@@ -31,19 +33,20 @@
       <input pInputText type="text" name="valor" currencyMask
       [options]="{ prefix: 'R$', thousands: '.', decimal: ',', allowNegative: false}" #valorReal="ngModel" ngModel required>
 
-      <app-message [control]="valorReal" error="required" text="Informe um valor."></app-message>
+      <app-message [control]="valorReal" error="required" text="Informe um valor, não pode ser R$0,00"></app-message>
 
     </div>
 
     <div class="categoria">
       <label>Categoria</label>
-      <p-dropdown [options]="categorias" [style]="{'width':'100%'}" placeholder="Selecione"></p-dropdown>
+      <p-dropdown [options]="categorias" [style]="{'width':'100%'}" placeholder="Selecione"
+      ngModel name="categoria" #categoria="ngModel" required></p-dropdown>
     </div>
 
     <div class="pessoa">
       <label>Pessoa</label>
       <p-dropdown [options]="pessoas" [style]="{'width':'100%'}" placeholder="Selecione"
-      [filter]="true"></p-dropdown>
+      [filter]="true" ngModel name="pessoa" #pessoa="ngModel" required></p-dropdown>
     </div>
 
     <div class="observacao">
@@ -52,7 +55,7 @@
     </div>
 
     <div class="botoes">
-      <button pButton type="submit" label="Salvar"></button>
+      <button pButton type="submit" label="Salvar" [disabled]="cadastroLancamento.invalid"></button>
       <button pButton type="submit" label="Novo"></button>
       <a href="#">Voltar para a pesquisa</a>
     </div>
