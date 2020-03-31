@@ -8,12 +8,12 @@
 
     <div class="vencimento">
       <label>Vencimento</label>
-      <p-calendar [locale]="br" showButtonBar="true"></p-calendar>
+      <p-calendar [locale]="br" showButtonBar="true" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-calendar>
     </div>
 
     <div class="recebimento">
       <label>{{ tipo.value == 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</label>
-      <p-calendar [locale]="br" showButtonBar="true"></p-calendar>
+      <p-calendar [locale]="br" showButtonBar="true" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"></p-calendar>
     </div>
 
     <div class="descricao">
@@ -28,12 +28,13 @@
 
     <div class="categoria">
       <label>Categoria</label>
-      <input pInputText type="text">
+      <p-dropdown [options]="categorias" [style]="{'width':'100%'}" placeholder="Selecione"></p-dropdown>
     </div>
 
     <div class="pessoa">
       <label>Pessoa</label>
-      <input pInputText type="text">
+      <p-dropdown [options]="pessoas" [style]="{'width':'100%'}" placeholder="Selecione"
+      [filter]="true"></p-dropdown>
     </div>
 
     <div class="observacao">

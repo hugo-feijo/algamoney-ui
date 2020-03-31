@@ -53,6 +53,7 @@
   .form-novo-lancamento{
   grid-template-columns: 1fr;
   grid-template-areas:
+  "tipo"
   "vencimento"
   "recebimento"
   "descricao"
