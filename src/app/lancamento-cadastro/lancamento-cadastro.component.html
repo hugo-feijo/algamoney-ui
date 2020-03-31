@@ -20,22 +20,19 @@
       <label>Descrição</label>
       <input pInputText type="text" name="descricao" ngModel #descricao="ngModel" required minlength="5">
 
-      <div *ngIf="descricao.hasError('required') && descricao.touched"
-      class="ui-message ui-message-error">
-        Informe uma descrição
-      </div>
-
-      <div *ngIf="descricao.hasError('minlength') && descricao.touched"
-      class="ui-message ui-message-error">
-        A descrição deve ter no mínimo {{descricao.errors.minlength.requiredLength}} caracteres, foram digitadas {{descricao.errors.minlength.actualLength}}
-      </div>
+      <app-message [control]="descricao" error="required" text="Infome uma descrição."></app-message>
+      <app-message [control]="descricao" error="minlength"
+      text="A descrição deve ter no mínimo {{descricao.errors?.minlength?.requiredLength}} caracteres, foram digitadas {{descricao.errors?.minlength?.actualLength}}."></app-message>
 
     </div>
 
     <div class="valor">
       <label>Valor</label>
       <input pInputText type="text" name="valor" currencyMask
-      [options]="{ prefix: 'R$', thousands: '.', decimal: ',', allowNegative: false}" #valorReal ngModel required>
+      [options]="{ prefix: 'R$', thousands: '.', decimal: ',', allowNegative: false}" #valorReal="ngModel" ngModel required>
+
+      <app-message [control]="valorReal" error="required" text="Informe um valor."></app-message>
+
     </div>
 
     <div class="categoria">
