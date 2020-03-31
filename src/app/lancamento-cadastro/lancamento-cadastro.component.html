@@ -2,14 +2,18 @@
   <h1>Novo lançamento</h1>
   <form action="" class="form-novo-lancamento">
 
+    <div class="tipo">
+      <p-selectButton [options]="tipoLancamento" #tipo ></p-selectButton>
+    </div>
+
     <div class="vencimento">
       <label>Vencimento</label>
       <p-calendar [locale]="br" showButtonBar="true"></p-calendar>
     </div>
 
     <div class="recebimento">
-      <label>Recebimento</label>
-      <p-calendar [locale]="br"></p-calendar>
+      <label>{{ tipo.value == 'RECEITA' ? 'Recebimento' : 'Pagamento' }}</label>
+      <p-calendar [locale]="br" showButtonBar="true"></p-calendar>
     </div>
 
     <div class="descricao">

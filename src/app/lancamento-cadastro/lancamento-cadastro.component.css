@@ -6,6 +6,7 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-areas:
+  "tipo       tipo          tipo       tipo"
   "vencimento recebimento   vazio      vazio"
   "descricao  descricao     descricao  valor"
   "categoria  categoria     pessoa     pessoa"
@@ -14,6 +15,8 @@
   ;
   grid-gap: 1em;
 }
+
+.tipo{ grid-area: tipo; }
 
 .vencimento{ grid-area: vencimento; }
 
