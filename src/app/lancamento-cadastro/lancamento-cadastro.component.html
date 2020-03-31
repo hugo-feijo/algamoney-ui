@@ -3,7 +3,7 @@
   <form action="" class="form-novo-lancamento">
 
     <div class="tipo">
-      <p-selectButton [options]="tipoLancamento" #tipo ></p-selectButton>
+      <p-selectButton [options]="tipoLancamento" #tipo></p-selectButton>
     </div>
 
     <div class="vencimento">
@@ -18,13 +18,24 @@
 
     <div class="descricao">
       <label>Descrição</label>
-      <input pInputText type="text">
+      <input pInputText type="text" name="descricao" ngModel #descricao="ngModel" required minlength="5">
+
+      <div *ngIf="descricao.hasError('required') && descricao.touched"
+      class="ui-message ui-message-error">
+        Informe uma descrição
+      </div>
+
+      <div *ngIf="descricao.hasError('minlength') && descricao.touched"
+      class="ui-message ui-message-error">
+        A descrição deve ter no mínimo {{descricao.errors.minlength.requiredLength}} caracteres, foram digitadas {{descricao.errors.minlength.actualLength}}
+      </div>
+
     </div>
 
     <div class="valor">
       <label>Valor</label>
-      <!-- <input pInput type="text" name="Valoor" [ngModel]="valor | currency:'BRL':'symbol':'1.2-2' " (ngModelChange)="valor=$event"> -->
-      <input pInputText type="text" name="valor" [(ngModel)]="valor" currencyMask [options]="{ prefix: 'R$', thousands: '.', decimal: ',', allowNegative: false}">
+      <input pInputText type="text" name="valor" currencyMask
+      [options]="{ prefix: 'R$', thousands: '.', decimal: ',', allowNegative: false}" #valorReal ngModel required>
     </div>
 
     <div class="categoria">
