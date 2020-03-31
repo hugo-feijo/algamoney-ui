@@ -1,0 +1,62 @@
+.form-novo-lancamento > div{
+  display: flex;
+  flex-direction: column;
+}
+.form-novo-lancamento{
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-areas:
+  "vencimento recebimento   vazio      vazio"
+  "descricao  descricao     descricao  valor"
+  "categoria  categoria     pessoa     pessoa"
+  "observacao observacao    observacao observacao"
+  "botoes     botoes        botoes     botoes"
+  ;
+  grid-gap: 1em;
+}
+
+.vencimento{ grid-area: vencimento; }
+
+.recebimento{ grid-area: recebimento; }
+
+.descricao{ grid-area: descricao; }
+
+.valor{ grid-area: valor; }
+
+.categoria{ grid-area: categoria; }
+
+.pessoa{ grid-area: pessoa; }
+
+.observacao{ grid-area: observacao; }
+
+.form-novo-lancamento .botoes{
+  grid-area: botoes;
+  flex-direction: row;
+  align-items: center;
+}
+
+.form-novo-lancamento .botoes button{
+  margin-right: 1em;
+}
+
+
+@media(max-width: 850px) and (min-width: 651px){
+  .vencimento, .recebimento{
+    grid-column: span 2;
+  }
+}
+
+@media(max-width:650px){
+  .form-novo-lancamento{
+  grid-template-columns: 1fr;
+  grid-template-areas:
+  "vencimento"
+  "recebimento"
+  "descricao"
+  "valor"
+  "categoria"
+  "pessoa"
+  "observacao"
+  ;
+}
+}
