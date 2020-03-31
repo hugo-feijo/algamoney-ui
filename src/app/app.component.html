@@ -1,5 +1,5 @@
-<app-navbar></app-navbar>
-<!-- <app-lancamentos-pesquisa></app-lancamentos-pesquisa> -->
-<!-- <app-pessoas-pesquisa></app-pessoas-pesquisa> -->
-<!-- <app-lancamento-cadastro></app-lancamento-cadastro> -->
-<app-pessoa-cadastro></app-pessoa-cadastro>
+<app-navbar (pagina)="alteraPagina($event)"></app-navbar>
+<app-lancamentos-pesquisa  [hidden]="lancamento"></app-lancamentos-pesquisa>
+<app-lancamento-cadastro [hidden]="lancamento"></app-lancamento-cadastro>
+<app-pessoas-pesquisa [hidden]="pessoa"></app-pessoas-pesquisa>
+<app-pessoa-cadastro [hidden]="pessoa"></app-pessoa-cadastro>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +7,20 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
 
+  lancamento = false;
+  pessoa = true;
+
+  alteraPagina(pagina: string) {
+    console.log(pagina);
+    if (pagina === 'lancamentos') {
+      this.lancamento = false;
+      this.pessoa = true;
+    }
+
+    if (pagina === 'pessoas') {
+      this.lancamento = true;
+      this.pessoa = false;
+    }
+
+  }
 }
