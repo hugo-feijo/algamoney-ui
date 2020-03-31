@@ -23,7 +23,8 @@
 
     <div class="valor">
       <label>Valor</label>
-      <input pInputText type="text" placeholder="0,00">
+      <!-- <input pInput type="text" name="Valoor" [ngModel]="valor | currency:'BRL':'symbol':'1.2-2' " (ngModelChange)="valor=$event"> -->
+      <input pInputText type="text" name="valor" [(ngModel)]="valor" currencyMask [options]="{ prefix: 'R$', thousands: '.', decimal: ',', allowNegative: false}">
     </div>
 
     <div class="categoria">

@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './lancamento-cadastro.component.html',
   styleUrls: ['./lancamento-cadastro.component.css']
 })
-export class LancamentoCadastroComponent {
+export class LancamentoCadastroComponent implements OnInit {
 
   tipoLancamento = [
     {label: 'Receita', value: 'RECEITA'},
@@ -24,6 +24,8 @@ export class LancamentoCadastroComponent {
   ];
 
   br: any;
+
+  valor: any;
 
   // tslint:disable-next-line: use-lifecycle-interface
   ngOnInit() {
