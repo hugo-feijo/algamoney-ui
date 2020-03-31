@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-lancamento-grid',
   templateUrl: './lancamento-grid.component.html',
   styleUrls: ['./lancamento-grid.component.css']
 })
-export class LancamentoGridComponent implements OnInit {
+export class LancamentoGridComponent {
 
-  constructor() { }
-
-  ngOnInit(): void {
-  }
+  @Input() lancamentos = [];
 
 }
