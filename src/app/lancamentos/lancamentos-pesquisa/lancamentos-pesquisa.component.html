@@ -1,32 +1,35 @@
 <div class="costum-container">
 
-  <div class="p-grid p-dir-col">
-    <div class="p-col">
-      <h1>Lançamentos</h1>
-    </div>
+  <form autocomplete="off" (ngSubmit)="findAllResumido()">
 
-    <div class="p-col">
-      <label>Decrição</label>
-      <input type="text" pInputText class="inputFull">
-    </div>
+    <div class="p-grid p-dir-col">
+      <div class="p-col">
+        <h1>Lançamentos</h1>
+      </div>
 
-    <div class="p-col">
-      <label style="display: block;">Vencimento</label>
-      <input type="text" pInputText>
-      <label style="margin: 0 .5em;">até</label>
-      <input type="text" pInputText>
-    </div>
+      <div class="p-col">
+        <label>Decrição</label>
+        <input type="text" pInputText class="inputFull" name="descricao" [(ngModel)]="descricao">
+      </div>
 
-    <div class="p-col-2">
-      <button pButton type="button" label="Pesquisar"></button>
+      <div class="p-col">
+        <label style="display: block;">Vencimento</label>
+        <input type="text" pInputText>
+        <label style="margin: 0 .5em;">até</label>
+        <input type="text" pInputText>
+      </div>
 
-    </div>
-    <div class="p-col-12">
-      <app-lancamento-grid [lancamentos]="lancamentos"></app-lancamento-grid>
-    </div>
+      <div class="p-col-2">
+        <button pButton type="submit" label="Pesquisar"></button>
 
-    <div class="p-col-12">
-      <a pButton label="Novo Lançamento"></a>
+      </div>
+      <div class="p-col-12">
+        <app-lancamento-grid [lancamentos]="lancamentos"></app-lancamento-grid>
+      </div>
+
+      <div class="p-col-12">
+        <a pButton label="Novo Lançamento"></a>
+      </div>
     </div>
-  </div>
+  </form>
 </div>

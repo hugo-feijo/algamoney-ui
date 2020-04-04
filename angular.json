@@ -129,6 +129,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "algamoney-ui"
+    }
+  },
+  "defaultProject": "algamoney-ui",
+  "cli": {
+    "analytics": "281d2516-a69b-4dab-a230-15b88454471e"
+  }
 }
