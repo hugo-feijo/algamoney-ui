@@ -1,20 +1,23 @@
 <div class="costum-container">
+
   <div class="p-grid p-dir-col">
-    <div class="p-col">
-      <h1>Pessoas</h1>
-    </div>
+    <form autocomplete="off" (ngSubmit)="findAll()">
+      <div class="p-col">
+        <h1>Pessoas</h1>
+      </div>
+
+      <div class="p-col">
+        <label>Nome</label>
+        <input pInputText type="text" class="inputFull" name="nome" [(ngModel)]="filtro.nome">
+      </div>
+
+      <div class="p-col">
+        <button pButton type="submit" label="Pesquisar"></button>
+      </div>
+    </form>
 
     <div class="p-col">
-      <label>Nome</label>
-      <input pInputText type="text" class="inputFull">
-    </div>
-
-    <div class="p-col">
-      <button pButton label="Pesquisar"></button>
-    </div>
-
-    <div class="p-col">
-      <app-pessoa-grid [pessoas]="pessoas"></app-pessoa-grid>
+      <app-pessoa-grid [pessoas]="pessoas" [filtro]="filtro" [totalRegistro]="totalRegistro" (pagina)="findAll($event)"></app-pessoa-grid>
     </div>
   </div>
 </div>

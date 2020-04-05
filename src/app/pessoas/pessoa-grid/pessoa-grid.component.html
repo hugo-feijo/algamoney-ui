@@ -1,4 +1,6 @@
-<p-table [value]="pessoas" [autoLayout]="true" [paginator]="true" [rows]="4" [responsive]="true">
+<p-table [value]="pessoas" [autoLayout]="true" [responsive]="true"
+[paginator]="true" [rows]="filtro.itensPorPagina" [totalRecords]="totalRegistro"
+[lazy]="true" (onLazyLoad)="aoMudarPagina($event)">
   <ng-template pTemplate="header">
     <tr>
       <th>Nome</th>
@@ -17,11 +19,11 @@
       </td>
       <td>
         <span class="ui-column-title">Cidade</span>
-        {{p.cidade}}
+        {{p.endereco.cidade}}
       </td>
       <td>
         <span class="ui-column-title">Estado</span>
-        {{p.estado}}
+        {{p.endereco.estado}}
       </td>
       <td>
         <span class="ui-column-title">Status</span>

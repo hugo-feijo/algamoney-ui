@@ -1,3 +1,4 @@
+import { PessoaService } from './pessoas/pessoa.service';
 import { HttpsRequestInterceptor } from './../interceptor.module';
 import { CoreModule } from './core/core.module';
 import { BrowserModule } from '@angular/platform-browser';
@@ -25,11 +26,12 @@ import { LancamentoService } from './lancamentos/lancamento.service';
     PessoasModule,
     CoreModule
   ],
-  providers: [LancamentoService, {
+  providers: [LancamentoService, PessoaService,
+    {
     provide: HTTP_INTERCEPTORS,
     useClass: HttpsRequestInterceptor,
     multi: true,
-  }],
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule {

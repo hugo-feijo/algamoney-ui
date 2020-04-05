@@ -33,7 +33,6 @@ export class LancamentosPesquisaComponent implements OnInit {
       success => {
         this.lancamentos = success.content;
         this.totalRegistro = success.totalElements;
-        console.log(success);
       }
     );
   }
