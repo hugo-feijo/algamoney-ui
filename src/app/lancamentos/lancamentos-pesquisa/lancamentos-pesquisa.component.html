@@ -9,14 +9,14 @@
 
       <div class="p-col">
         <label>Decrição</label>
-        <input type="text" pInputText class="inputFull" name="descricao" [(ngModel)]="descricao">
+        <input type="text" pInputText class="inputFull" name="descricao" [(ngModel)]="filtro.descricao">
       </div>
 
       <div class="p-col">
         <label style="display: block;">Vencimento</label>
-        <input type="text" pInputText>
+        <p-calendar [locale]="br" showButtonBar="true" dateFormat="dd/mm/yy" [inputStyle]="{'width':'95px'}" name="vencimentoInicio" [(ngModel)]="filtro.dataVencimentoDe"></p-calendar>
         <label style="margin: 0 .5em;">até</label>
-        <input type="text" pInputText>
+        <p-calendar [locale]="br" showButtonBar="true" dateFormat="dd/mm/yy" [inputStyle]="{'width':'95px'}" name="vencimentoAte" [(ngModel)]="filtro.dataVencimentoAte"></p-calendar>
       </div>
 
       <div class="p-col-2">
@@ -24,7 +24,7 @@
 
       </div>
       <div class="p-col-12">
-        <app-lancamento-grid [lancamentos]="lancamentos"></app-lancamento-grid>
+        <app-lancamento-grid [lancamentos]="lancamentos" [filtro]="filtro" [totalRegistro]="totalRegistro" (pagina)="findAllResumido($event)"></app-lancamento-grid>
       </div>
 
       <div class="p-col-12">

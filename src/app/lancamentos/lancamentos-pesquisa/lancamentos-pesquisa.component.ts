@@ -1,5 +1,5 @@
+import { LancamentoService, LancamentoFiltro } from './../lancamento.service';
 import { Component, OnInit } from '@angular/core';
-import { LancamentoService } from '../lancamento.service';
 
 @Component({
   selector: 'app-lancamentos-pesquisa',
@@ -8,19 +8,33 @@ import { LancamentoService } from '../lancamento.service';
 })
 export class LancamentosPesquisaComponent implements OnInit {
 
-  descricao: string;
+  totalRegistro = 0;
+  filtro = new LancamentoFiltro();
   lancamentos = [];
+  br: any;
 
   constructor(private lancamentoService: LancamentoService) { }
 
+
   ngOnInit() {
-    this.findAllResumido();
+    this.br = {
+      firstDayOfWeek: 0,
+      dayNamesMin: ['Do', 'Se', 'Te', 'Qa', 'Qi', 'Se', 'Sa'],
+      monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho',
+        'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+      today: 'Hoje',
+      clear: 'Limpar',
+    };
   }
 
-  findAllResumido() {
-    console.log(`Pesquisando descricao: ${this.descricao}`);
-    this.lancamentoService.findAllResumido({descricao:  this.descricao}).subscribe(
-      success => { this.lancamentos = success.content; console.log(success); }
+  findAllResumido(pagina = 0) {
+    this.filtro.pagina = pagina;
+    this.lancamentoService.findAllResumido(this.filtro).subscribe(
+      success => {
+        this.lancamentos = success.content;
+        this.totalRegistro = success.totalElements;
+        console.log(success);
+      }
     );
   }
 

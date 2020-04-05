@@ -1,4 +1,5 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { LazyLoadEvent } from 'primeng/api';
 
 @Component({
   selector: 'app-lancamento-grid',
@@ -8,5 +9,11 @@ import { Component, OnInit, Input } from '@angular/core';
 export class LancamentoGridComponent {
 
   @Input() lancamentos = [];
+  @Input() filtro: any;
+  @Input() totalRegistro: number;
+  @Output() pagina = new EventEmitter<number>();
 
+  aoMudarPagina(event: LazyLoadEvent) {
+    this.pagina.emit(event.first / event.rows);
+  }
 }

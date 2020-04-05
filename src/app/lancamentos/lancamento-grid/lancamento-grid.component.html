@@ -1,4 +1,5 @@
-<p-table [value]="lancamentos" [autoLayout]="true" [paginator]="true" [rows]="4" [responsive]="true">
+<p-table [value]="lancamentos" [autoLayout]="true" [responsive]="true"
+[paginator]="true" [rows]="filtro.itensPorPagina" [lazy]="true" [totalRecords]="totalRegistro" (onLazyLoad)="aoMudarPagina($event)">
   <ng-template pTemplate="header">
     <tr>
       <th>Pessoa</th>
@@ -34,6 +35,13 @@
       <td class="col-center">
         <button pButton icon="fa fa-pencil" pTooltip="Editar" tooltipPosition="top"> </button>
         <button pButton icon="fa fa-trash" pTooltip="Excluir" tooltipPosition="top"> </button>
+      </td>
+    </tr>
+  </ng-template>
+  <ng-template pTemplate="emptymessage">
+    <tr>
+      <td [attr.colspan]="6">
+        Nenhum lançamento encontrado
       </td>
     </tr>
   </ng-template>
