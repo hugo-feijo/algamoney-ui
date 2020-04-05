@@ -9,6 +9,7 @@ import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos
 import { LancamentoGridComponent } from './lancamento-grid/lancamento-grid.component';
 
 import { CurrencyMaskModule } from 'ng2-currency-mask';
+
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
 import { InputTextModule } from 'primeng/inputtext';
@@ -17,6 +18,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ToastModule } from 'primeng/toast';
 
 
 
@@ -40,6 +42,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     CalendarModule,
     SelectButtonModule,
     DropdownModule,
+    ToastModule,
 
     CurrencyMaskModule,
 

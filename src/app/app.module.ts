@@ -11,6 +11,7 @@ import { LancamentosModule } from './lancamentos/lancamentos.module';
 import { PessoasModule } from './pessoas/pessoas.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LancamentoService } from './lancamentos/lancamento.service';
+import { MessageService } from 'primeng/api';
 
 
 @NgModule({
@@ -26,7 +27,7 @@ import { LancamentoService } from './lancamentos/lancamento.service';
     PessoasModule,
     CoreModule
   ],
-  providers: [LancamentoService, PessoaService,
+  providers: [LancamentoService, PessoaService, MessageService,
     {
     provide: HTTP_INTERCEPTORS,
     useClass: HttpsRequestInterceptor,

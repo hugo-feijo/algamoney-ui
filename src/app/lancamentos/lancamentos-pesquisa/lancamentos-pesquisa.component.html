@@ -1,8 +1,8 @@
 <div class="costum-container">
 
-  <form autocomplete="off" (ngSubmit)="findAllResumido()">
 
-    <div class="p-grid p-dir-col">
+  <div class="p-grid p-dir-col">
+    <form autocomplete="off" (ngSubmit)="findAllResumido()">
       <div class="p-col">
         <h1>Lançamentos</h1>
       </div>
@@ -23,6 +23,7 @@
         <button pButton type="submit" label="Pesquisar"></button>
 
       </div>
+    </form>
       <div class="p-col-12">
         <app-lancamento-grid [lancamentos]="lancamentos" [filtro]="filtro" [totalRegistro]="totalRegistro" (pagina)="findAllResumido($event)"></app-lancamento-grid>
       </div>
@@ -31,5 +32,4 @@
         <a pButton label="Novo Lançamento"></a>
       </div>
     </div>
-  </form>
 </div>
