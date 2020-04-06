@@ -37,6 +37,6 @@ export class PessoaService {
   }
 
   alterarStatus(pessoa: any) {
-    return this.http.put(this.pessoaUrl + `/${pessoa.codigo}/ativo`, !pessoa.ativo);
+    return this.http.put(this.pessoaUrl + `/${pessoa.codigo}/ativo`, !pessoa.ativo).pipe(take(1));
   }
 }
