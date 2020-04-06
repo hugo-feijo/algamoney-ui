@@ -21,7 +21,6 @@ export class LancamentoGridComponent {
 
   aoMudarPagina(eventLazy: LazyLoadEvent) {
     this.event = eventLazy;
-    console.log(this.event);
     this.pagina.emit(this.event.first / this.event.rows);
   }
 

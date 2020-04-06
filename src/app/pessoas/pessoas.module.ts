@@ -1,3 +1,4 @@
+import { ToastModule } from 'primeng/toast';
 import { SharedModule } from './../shared/shared.module';
 import { FormsModule } from '@angular/forms';
 
@@ -30,6 +31,7 @@ import { CommonModule } from '@angular/common';
     TableModule,
     TooltipModule,
     InputMaskModule,
+    ToastModule,
 
     SharedModule
   ],

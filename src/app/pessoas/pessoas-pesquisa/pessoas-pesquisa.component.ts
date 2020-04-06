@@ -22,7 +22,6 @@ export class PessoasPesquisaComponent implements OnInit {
       success => {
         this.pessoas = success.content;
         this.totalRegistro = success.totalElements;
-        console.log(success);
       }
     );
   }

@@ -31,4 +31,9 @@ export class PessoaService {
 
     return this.http.get(this.pessoaUrl, {params}).pipe(take(1));
   }
+
+  delete(pessoa: any) {
+    console.log('chegou no service');
+    return this.http.delete(this.pessoaUrl + `/${pessoa.codigo}`).pipe(take(1));
+  }
 }
