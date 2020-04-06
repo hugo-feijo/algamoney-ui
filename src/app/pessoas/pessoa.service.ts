@@ -22,11 +22,12 @@ export class PessoaService {
   findAll(filtro: PessoaFilter): Observable<any> {
     let params = new HttpParams();
 
-    params = params.set('page', filtro.pagina.toString());
-    params = params.set('size', filtro.itensPorPagina.toString());
-
-    if (filtro.nome) {
-      params = params.set('nome', filtro.nome);
+    if (filtro != null) {
+      params = params.set('page', filtro.pagina.toString());
+      params = params.set('size', filtro.itensPorPagina.toString());
+      if (filtro.nome) {
+        params = params.set('nome', filtro.nome);
+      }
     }
 
     return this.http.get(this.pessoaUrl, {params}).pipe(take(1));

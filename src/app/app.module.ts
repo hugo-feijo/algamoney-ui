@@ -1,3 +1,4 @@
+import { CategoriaService } from './categorias/categoria.service';
 import { ToastModule } from 'primeng/toast';
 import { PessoaService } from './pessoas/pessoa.service';
 import { HttpsRequestInterceptor } from './../interceptor.module';
@@ -36,6 +37,7 @@ registerLocaleData(localePt);
   providers: [
     LancamentoService,
     PessoaService,
+    CategoriaService,
     MessageService,
     { provide: LOCALE_ID, useValue: 'pt'},
     {
