@@ -24,13 +24,11 @@ export class PessoaGridComponent {
   }
 
   delete() {
-    console.log(this.pessoa);
     this.pessoaService.delete(this.pessoa).subscribe(
       success => {
         this.pagina.emit(this.event.first / this.event.rows);
         this.addToastDeleteSuccess();
-      },
-      error => console.log(error)
+      }
     );
   }
 

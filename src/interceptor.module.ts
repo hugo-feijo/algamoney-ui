@@ -18,15 +18,17 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
       retry(2),
       catchError((error: HttpErrorResponse) => {
         const errorMessage = {summary: '', detail: ''};
-        if(error.error instanceof ErrorEvent) {
+        if (error.error instanceof ErrorEvent) {
           errorMessage.summary = 'Erro na requisição';
           errorMessage.detail = error.error.message;
         } else {
           errorMessage.summary = 'Erro no servidor';
           errorMessage.detail = `Erro ao processar serviço remoto, tente novamente.`;
         }
+        if (error.status >= 400 && error.status <= 499 && error.error[0]) {
+          errorMessage.detail = error.error[0].mensagemUsuario;
+        }
         this.messageService.add({ key: 'errorHttp', severity: 'error', summary: errorMessage.summary, detail: errorMessage.detail });
-        console.error(error);
         return throwError(errorMessage);
       })
     );

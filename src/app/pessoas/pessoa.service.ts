@@ -15,7 +15,7 @@ export class PessoaFilter {
 })
 export class PessoaService {
 
-  pessoaUrl = environment.API + 'pessoa';
+  pessoaUrl = environment.API + 'pessooa';
 
   constructor(private http: HttpClient) { }
 
@@ -33,7 +33,6 @@ export class PessoaService {
   }
 
   delete(pessoa: any) {
-    console.log('chegou no service');
     return this.http.delete(this.pessoaUrl + `/${pessoa.codigo}`).pipe(take(1));
   }
 }
