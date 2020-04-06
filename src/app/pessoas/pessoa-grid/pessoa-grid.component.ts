@@ -13,6 +13,7 @@ export class PessoaGridComponent {
 
   pessoa: any;
   event: LazyLoadEvent;
+  detailToast = '';
   @Input() pessoas = [];
   @Input() filtro: any;
   @Input() totalRegistro: number;
@@ -27,13 +28,25 @@ export class PessoaGridComponent {
     this.pessoaService.delete(this.pessoa).subscribe(
       success => {
         this.pagina.emit(this.event.first / this.event.rows);
-        this.addToastDeleteSuccess();
+        this.detailToast = 'Pessoa deletada com sucesso!';
+        this.addToast();
       }
+      );
+    }
+
+    alterarStatus(pessoa: any) {
+      this.pessoaService.alterarStatus(pessoa).subscribe(
+        success => {
+        this.pagina.emit(this.event.first / this.event.rows);
+        this.detailToast = `Pessoa ${pessoa.ativo === false ? 'ativado' : 'inativado'} com sucesso!`;
+        this.addToast();
+      },
+      error => console.log(error)
     );
   }
 
-  addToastDeleteSuccess() {
-    this.messageService.add({ key: 'success', severity: 'success', summary: 'Sucesso', detail: 'Pessoa deletada com sucesso!'});
+  addToast() {
+    this.messageService.add({ key: 'success', severity: 'success', summary: 'Sucesso', detail: this.detailToast});
   }
 
   addToastConfirmDelete(pessoa: any) {

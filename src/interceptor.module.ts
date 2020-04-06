@@ -11,7 +11,8 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const dupReq = req.clone({
-      headers: req.headers.set('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg==')
+      headers: req.headers.set('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='),
+      setHeaders: {'Content-Type': 'application/json'}
     });
     return next.handle(dupReq)
     .pipe(

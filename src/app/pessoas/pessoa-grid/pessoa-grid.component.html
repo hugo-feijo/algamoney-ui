@@ -48,7 +48,7 @@
       <td>
         <span class="ui-column-title">Status</span>
         <a href="#" [pTooltip]="p.ativo ? 'Desativar' : 'Ativar'"
-          tooltipPosition="top">{{p.ativo ? 'Ativo' : 'Inativo'}}</a>
+          tooltipPosition="top" (click)="alterarStatus(p)">{{p.ativo ? 'Ativo' : 'Inativo'}}</a>
       </td>
       <td class="col-center">
         <button pButton icon="fa fa-pencil" pTooltip="Editar" tooltipPosition="top"></button>
