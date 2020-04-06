@@ -47,7 +47,7 @@ export class LancamentoService {
     .pipe(take(1));
   }
 
-  delete(codigo: number){
+  delete(codigo: number) {
     return this.http.delete(this.lancamentoUrl + `/${codigo}`).pipe(take(1));
   }
 }

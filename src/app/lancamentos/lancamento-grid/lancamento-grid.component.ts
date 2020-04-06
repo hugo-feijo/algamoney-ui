@@ -29,6 +29,7 @@ export class LancamentoGridComponent {
     this.lancamentoService.delete(lancamento.codigo).subscribe(
       success => {
         this.pagina.emit(this.event.first / this.event.rows);
+        this.addToastDeleteSuccess();
       },
       error => console.error(error)
     );
@@ -47,7 +48,6 @@ export class LancamentoGridComponent {
   aoConfirmar() {
     this.delete(this.lancamento);
     this.messageService.clear();
-    this.addToastDeleteSuccess();
   }
   aoRejeitar() {
     this.messageService.clear();

@@ -1,3 +1,4 @@
+import { ToastModule } from 'primeng/toast';
 import { PessoaService } from './pessoas/pessoa.service';
 import { HttpsRequestInterceptor } from './../interceptor.module';
 import { CoreModule } from './core/core.module';
@@ -29,7 +30,8 @@ registerLocaleData(localePt);
 
     LancamentosModule,
     PessoasModule,
-    CoreModule
+    CoreModule,
+    ToastModule
   ],
   providers: [
     LancamentoService,
