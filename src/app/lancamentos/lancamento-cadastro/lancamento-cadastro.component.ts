@@ -80,7 +80,7 @@ export class LancamentoCadastroComponent implements OnInit {
   }
 
   addToast() {
-    this.messageService.add({ key: 'success', severity: 'success', summary: 'Success Message', detail: 'Order submitted' });
+    this.messageService.add({ key: 'success', severity: 'success', summary: 'Sucesso', detail: 'Lançamento adicionado com sucesso' });
   }
 
 }

@@ -7,7 +7,7 @@ import { Component, Input } from '@angular/core';
 })
 export class AppComponent {
 
-  lancamento = false;
+  lancamento = true;
   pessoa = !this.lancamento;
 
   alteraPagina(pagina: string) {

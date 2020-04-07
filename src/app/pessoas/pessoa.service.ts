@@ -1,3 +1,4 @@
+import { Pessoa } from './../core/model';
 import { take } from 'rxjs/operators';
 import { environment } from './../../environments/environment';
 import { HttpClient, HttpParams } from '@angular/common/http';
@@ -18,6 +19,10 @@ export class PessoaService {
   pessoaUrl = environment.API + 'pessoa';
 
   constructor(private http: HttpClient) { }
+
+  insert(pessoa: Pessoa): Observable<any> {
+    return this.http.post(this.pessoaUrl, JSON.stringify(pessoa)).pipe(take(1));
+  }
 
   findAll(filtro: PessoaFilter): Observable<any> {
     let params = new HttpParams();
