@@ -4,6 +4,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { take } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
+import { Lancamento } from '../core/model';
 
 export class LancamentoFiltro {
   descricao: string;
@@ -21,6 +22,11 @@ export class LancamentoService {
   lancamentoUrl = environment.API + 'lancamento';
 
   constructor(private http: HttpClient) { }
+
+  insert(lancamento: Lancamento): Observable<any> {
+    console.log(JSON.stringify(lancamento));
+    return this.http.post(this.lancamentoUrl, JSON.stringify(lancamento)).pipe(take(1));
+  }
 
   findAllResumido(filtro: LancamentoFiltro): Observable<any> {
     let params = new HttpParams();
