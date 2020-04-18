@@ -1,3 +1,4 @@
+import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './navbar/navbar.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -9,7 +10,8 @@ import { CommonModule } from '@angular/common';
     NavbarComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    RouterModule
   ],
   exports: [NavbarComponent]
 })

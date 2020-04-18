@@ -2,15 +2,15 @@
   <div class="costum-container">
     <div class="p-grid p-align-center" style="height: 100%;">
       <div class="p-col">
-        <a href="#" class="navbar-toggle" (click)="exibindoMenu = !exibindoMenu"><i class="fa fa-bars"></i></a>
+        <a class="navbar-toggle" (click)="exibindoMenu = !exibindoMenu"><i class="fa fa-bars"></i></a>
       </div>
     </div>
   </div>
 
   <ul class="navbar-menu" [hidden]="!exibindoMenu">
     <li class="navbar-usuario">José da Silva</li>
-    <!-- <li class="navbar-menuitem" ><a href="#" [routerLink]="['/lancamento']">Lançamentos</a></li> -->
-    <li class="navbar-menuitem"><a href="#">Pessoas</a></li>
+    <li class="navbar-menuitem" ><a routerLink="/lancamento">Lançamentos</a></li>
+    <li class="navbar-menuitem"><a routerLink="/pessoa">Pessoas</a></li>
     <li class="navbar-menuitem"><a href="#">Logout</a></li>
   </ul>
 </nav>
