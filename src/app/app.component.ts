@@ -7,19 +7,5 @@ import { Component, Input } from '@angular/core';
 })
 export class AppComponent {
 
-  lancamento = true;
-  pessoa = !this.lancamento;
 
-  alteraPagina(pagina: string) {
-    if (pagina === 'lancamentos') {
-      this.lancamento = false;
-      this.pessoa = true;
-    }
-
-    if (pagina === 'pessoas') {
-      this.lancamento = true;
-      this.pessoa = false;
-    }
-
-  }
 }

@@ -8,9 +8,4 @@ import { Component, Output, EventEmitter } from '@angular/core';
 export class NavbarComponent  {
   exibindoMenu = false;
 
-  @Output() pagina = new EventEmitter<string>();
-
-  alterarPagina(value: string){
-    this.pagina.emit(value);
-  }
 }

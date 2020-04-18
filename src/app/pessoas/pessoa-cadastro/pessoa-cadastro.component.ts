@@ -9,7 +9,7 @@ import { NgForm } from '@angular/forms';
   templateUrl: './pessoa-cadastro.component.html',
   styleUrls: ['./pessoa-cadastro.component.css']
 })
-export class PessoaCadastroComponent{
+export class PessoaCadastroComponent {
 
   constructor(private pessoaService: PessoaService, private messageService: MessageService) { }
 

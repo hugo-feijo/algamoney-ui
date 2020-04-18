@@ -1,3 +1,5 @@
+import { PessoaCadastroComponent } from './pessoas/pessoa-cadastro/pessoa-cadastro.component';
+import { RouterModule } from '@angular/router';
 import { CategoriaService } from './categorias/categoria.service';
 import { ToastModule } from 'primeng/toast';
 import { PessoaService } from './pessoas/pessoa.service';
@@ -17,6 +19,7 @@ import { PessoasModule } from './pessoas/pessoas.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LancamentoService } from './lancamentos/lancamento.service';
 import { MessageService } from 'primeng/api';
+import { LancamentoCadastroComponent } from './lancamentos/lancamento-cadastro/lancamento-cadastro.component';
 
 registerLocaleData(localePt);
 
