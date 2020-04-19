@@ -40,8 +40,7 @@ export class PessoaGridComponent {
         this.pagina.emit(this.event.first / this.event.rows);
         this.detailToast = `Pessoa ${pessoa.ativo === false ? 'ativado' : 'inativado'} com sucesso!`;
         this.addToast();
-      },
-      error => console.log(error)
+      }
     );
   }
 

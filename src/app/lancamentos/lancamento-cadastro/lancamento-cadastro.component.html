@@ -60,7 +60,7 @@
 
     <div class="botoes">
       <button pButton type="submit" label="Salvar" [disabled]="cadastroLancamento.invalid"></button>
-      <button pButton type="submit" label="Novo"></button>
+      <button pButton type="button" label="Novo" (click)="novo(cadastroLancamento)"></button>
       <a routerLink="/lancamento" >Voltar para a pesquisa</a>
     </div>
   </form>

@@ -27,7 +27,7 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
           errorMessage.detail = `Erro ao processar serviço remoto, tente novamente.`;
         }
         if (error.status >= 400 && error.status <= 499 && error.error[0]) {
-          errorMessage.detail = error.error[0].mensagemUsuario;
+          errorMessage.detail = error.error[0].mensagemDesenvolvedor;
         }
         this.messageService.add({ key: 'errorHttp', severity: 'error', summary: errorMessage.summary, detail: errorMessage.detail });
         return throwError(errorMessage);

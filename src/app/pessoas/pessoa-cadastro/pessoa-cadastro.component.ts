@@ -16,7 +16,6 @@ export class PessoaCadastroComponent {
   pessoa = new Pessoa();
 
   salvar(form: NgForm) {
-    console.log(this.pessoa);
     this.pessoaService.insert(this.pessoa).subscribe(
       success => {
         this.addToast();
