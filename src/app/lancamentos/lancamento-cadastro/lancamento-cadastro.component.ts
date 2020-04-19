@@ -5,6 +5,7 @@ import { CategoriaService } from './../../categorias/categoria.service';
 import { Component, OnInit } from '@angular/core';
 import { Lancamento } from 'src/app/core/model';
 import { FormControl, NgForm } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-lancamento-cadastro',
@@ -17,7 +18,8 @@ export class LancamentoCadastroComponent implements OnInit {
     private categoriaService: CategoriaService,
     private pessoaService: PessoaService,
     private lancamentoService: LancamentoService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: ActivatedRoute
     ) { }
 
   tipoLancamento = [
@@ -31,6 +33,7 @@ export class LancamentoCadastroComponent implements OnInit {
   lancamento = new Lancamento();
 
   ngOnInit() {
+    console.log(this.router.snapshot.params['codigo']);
     this.br = {
       firstDayOfWeek: 0,
       dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],

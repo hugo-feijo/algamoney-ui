@@ -54,7 +54,7 @@
           [style.color]="lancamento.tipo === 'DESPESA' ? 'red' : 'blue'">{{lancamento.valor | currency:'BRL':'symbol':'1.2-2'}}</span>
       </td>
       <td class="col-center">
-        <button pButton icon="fa fa-pencil" pTooltip="Editar" tooltipPosition="top"></button>
+        <button pButton icon="fa fa-pencil" pTooltip="Editar" tooltipPosition="top" [routerLink]="['/lancamento', lancamento.codigo]"></button>
         <button pButton icon="fa fa-trash" pTooltip="Excluir" tooltipPosition="top" (click)="addToastDeleteConfirm(lancamento)"> </button>
       </td>
     </tr>

@@ -1,15 +1,23 @@
+#checkMenu{ display: none;}
+
+#checkMenu:checked ~ .navbar-menu{
+  right: 0;
+}
+
 .navbar {
   background-color: #1e94d2;
 }
 
 .navbar-toggle{
   color: white;
+  width: 40px;
+  height: 40px;
 }
 
 .navbar-menu{
   position: fixed;
   top: 0;
-  right: 0;
+  right: -300px;
   bottom: 0;
   width: 210px;
   z-index: 99999;
@@ -17,6 +25,7 @@
   background-color: #3a3633;
   list-style: none;
   padding: 0;
+  transition: 0.5s ease-in-out;
 }
 
 .navbar-usuario{
@@ -38,4 +47,8 @@
 }
 .navbar-menuitem a:hover{
   color: white;
+}
+
+.navbar-menuitem.ativo{
+  background-color: #494541;
 }

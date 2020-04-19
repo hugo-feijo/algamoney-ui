@@ -10,6 +10,7 @@ const routes: Routes = [
   { path: '', component: PessoaCadastroComponent },
   { path: 'lancamento', component: LancamentosPesquisaComponent },
   { path: 'lancamento/novo', component: LancamentoCadastroComponent },
+  { path: 'lancamento/:codigo', component: LancamentoCadastroComponent },
   { path: 'pessoa', component: PessoasPesquisaComponent },
   { path: 'pessoa/novo', component: PessoaCadastroComponent },
 ];
