@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
 import { Lancamento } from 'src/app/core/model';
 import { FormControl, NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-lancamento-cadastro',
@@ -20,7 +21,8 @@ export class LancamentoCadastroComponent implements OnInit {
     private lancamentoService: LancamentoService,
     private messageService: MessageService,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private title: Title
     ) { }
 
   tipoLancamento = [
@@ -34,13 +36,14 @@ export class LancamentoCadastroComponent implements OnInit {
   lancamento = new Lancamento();
 
   ngOnInit() {
-   const codigoLancamento = this.route.snapshot.params.codigo;
+    this.title.setTitle('Novo lançamento');
+    const codigoLancamento = this.route.snapshot.params.codigo;
 
-   if (codigoLancamento) {
+    if (codigoLancamento) {
      this.loadLancamento(codigoLancamento);
-   }
+    }
 
-   this.br = {
+    this.br = {
       firstDayOfWeek: 0,
       dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
       dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
@@ -53,8 +56,8 @@ export class LancamentoCadastroComponent implements OnInit {
       dateFormat: 'dd/mm/yy',
       weekHeader: 'Wk'
     };
-   this.findCategoria();
-   this.findPessoas();
+    this.findCategoria();
+    this.findPessoas();
   }
 
   get editando() {
@@ -63,7 +66,10 @@ export class LancamentoCadastroComponent implements OnInit {
 
   loadLancamento(codigo: number) {
     this.lancamentoService.findById(codigo).subscribe(
-     success => this.lancamento = success
+     success => {
+       this.lancamento = success,
+       this.atualizarTituloEdicao();
+      }
     );
   }
 
@@ -79,6 +85,7 @@ export class LancamentoCadastroComponent implements OnInit {
     this.lancamentoService.update(this.lancamento).subscribe(
       success => {
         this.lancamento = success,
+        this.atualizarTituloEdicao(),
         this.addToast('Lançamento alterado com sucesso.');
       }
     );
@@ -124,5 +131,9 @@ export class LancamentoCadastroComponent implements OnInit {
       this.lancamento = new Lancamento();
     }, 1);
     this.router.navigate(['/lancamento/novo']);
+  }
+
+  atualizarTituloEdicao() {
+    this.title.setTitle('Editando lançamento: ' + this.lancamento.descricao);
   }
 }

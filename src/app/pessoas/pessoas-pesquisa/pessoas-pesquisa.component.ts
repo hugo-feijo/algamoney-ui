@@ -1,5 +1,6 @@
 import { PessoaService, PessoaFilter } from './../pessoa.service';
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-pessoas-pesquisa',
@@ -11,9 +12,10 @@ export class PessoasPesquisaComponent implements OnInit {
   pessoas = [];
   filtro = new PessoaFilter();
 
-  constructor(private pessoaService: PessoaService) {}
+  constructor(private pessoaService: PessoaService, private title: Title) {}
 
   ngOnInit() {
+    this.title.setTitle('Pesquisa de pessoa');
   }
 
   findAll(pagina = 0) {
