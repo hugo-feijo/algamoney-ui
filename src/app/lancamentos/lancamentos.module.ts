@@ -49,10 +49,6 @@ import { ToastModule } from 'primeng/toast';
     CurrencyMaskModule,
 
     SharedModule
-  ],
-  exports: [
-    LancamentoCadastroComponent,
-    LancamentosPesquisaComponent
   ]
 })
 export class LancamentosModule { }

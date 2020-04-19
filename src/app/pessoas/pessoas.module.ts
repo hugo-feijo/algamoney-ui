@@ -36,10 +36,6 @@ import { CommonModule } from '@angular/common';
     ToastModule,
 
     SharedModule
-  ],
-  exports: [
-    PessoasPesquisaComponent,
-    PessoaCadastroComponent
   ]
 })
 export class PessoasModule { }
