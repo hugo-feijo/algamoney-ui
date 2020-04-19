@@ -33,8 +33,13 @@ export class LancamentoCadastroComponent implements OnInit {
   lancamento = new Lancamento();
 
   ngOnInit() {
-    console.log(this.router.snapshot.params['codigo']);
-    this.br = {
+   const codigoLancamento = this.router.snapshot.params.codigo;
+
+   if (codigoLancamento) {
+     this.loadLancamento(codigoLancamento);
+   }
+
+   this.br = {
       firstDayOfWeek: 0,
       dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
       dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
@@ -47,17 +52,44 @@ export class LancamentoCadastroComponent implements OnInit {
       dateFormat: 'dd/mm/yy',
       weekHeader: 'Wk'
     };
-    this.findCategoria();
-    this.findPessoas();
+   this.findCategoria();
+   this.findPessoas();
+  }
+
+  get editando() {
+    return Boolean(this.lancamento.codigo);
+  }
+
+  loadLancamento(codigo: number) {
+    this.lancamentoService.findById(codigo).subscribe(
+     success => this.lancamento = success
+    );
   }
 
   salvar(form: NgForm) {
+    if (this.editando) {
+      this.atualizar(form);
+    } else {
+      this.adicionarLancamento(form);
+    }
+  }
+
+  atualizar(form: NgForm) {
+    this.lancamentoService.update(this.lancamento).subscribe(
+      success => {
+        this.lancamento = success,
+        this.addToast('Lançamento alterado com sucesso.');
+      },
+      error => console.log(error)
+    );
+  }
+
+  adicionarLancamento(form: NgForm) {
     this.lancamentoService.insert(this.lancamento).subscribe(
       success => {
-        console.log(success);
         form.reset();
         this.lancamento = new Lancamento();
-        this.addToast();
+        this.addToast('Lançamento adicionado com sucesso.');
       }
     );
   }
@@ -82,8 +114,8 @@ export class LancamentoCadastroComponent implements OnInit {
     );
   }
 
-  addToast() {
-    this.messageService.add({ key: 'success', severity: 'success', summary: 'Sucesso', detail: 'Lançamento adicionado com sucesso' });
+  addToast(detail: string) {
+    this.messageService.add({ key: 'success', severity: 'success', summary: 'Sucesso', detail });
   }
 
 }

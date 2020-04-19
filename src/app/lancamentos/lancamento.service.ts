@@ -1,10 +1,10 @@
+import { Lancamento } from './../core/model';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { take } from 'rxjs/operators';
+import { take, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import * as moment from 'moment';
-import { Lancamento } from '../core/model';
 
 export class LancamentoFiltro {
   descricao: string;
@@ -24,7 +24,6 @@ export class LancamentoService {
   constructor(private http: HttpClient) { }
 
   insert(lancamento: Lancamento): Observable<any> {
-    console.log(JSON.stringify(lancamento));
     return this.http.post(this.lancamentoUrl, JSON.stringify(lancamento)).pipe(take(1));
   }
 
@@ -55,5 +54,34 @@ export class LancamentoService {
 
   delete(codigo: number) {
     return this.http.delete(this.lancamentoUrl + `/${codigo}`).pipe(take(1));
+  }
+
+  update(lancamento: Lancamento): Observable<any> {
+    return this.http.post(`${this.lancamentoUrl}/${lancamento.codigo}`, JSON.stringify(lancamento)).pipe(
+      map(lanc => {
+        this.parseStringToDate([lanc]);
+        return lanc;
+      }),
+      take(1)
+    );
+  }
+
+  findById(codigo: number): Observable<any> {
+    return this.http.get(`${this.lancamentoUrl}/${codigo}`).pipe(
+      map(lanc => {
+        this.parseStringToDate([lanc]);
+        return lanc;
+      }),
+      take(1)
+    );
+  }
+
+  parseStringToDate(lancamentos: any[]) {
+    lancamentos.forEach(lan => {
+      lan.dataVencimento = moment(lan.dataVencimento, 'YYYY-MM-DD').toDate();
+      if (lan.dataPagamento) {
+        lan.dataPagamento = moment(lan.dataPagamento, 'YYYY-MM-DD').toDate();
+      }
+    });
   }
 }

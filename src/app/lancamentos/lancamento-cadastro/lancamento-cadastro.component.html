@@ -1,5 +1,5 @@
 <div class="costum-container">
-  <h1>Novo lançamento</h1>
+  <h1>{{editando ? 'Ediçao de' : 'Novo'}} lançamento</h1>
   <form #cadastroLancamento="ngForm" class="form-novo-lancamento" (ngSubmit)="salvar(cadastroLancamento)">
 
     <div class="tipo">
