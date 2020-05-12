@@ -1,3 +1,4 @@
+import { LancamentoRoutingModule } from './lancamentos/lancamentos-routing.module';
 import { PessoaCadastroComponent } from './pessoas/pessoa-cadastro/pessoa-cadastro.component';
 import { RouterModule } from '@angular/router';
 import { CategoriaService } from './categorias/categoria.service';
@@ -19,7 +20,6 @@ import { PessoasModule } from './pessoas/pessoas.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LancamentoService } from './lancamentos/lancamento.service';
 import { MessageService } from 'primeng/api';
-import { LancamentoCadastroComponent } from './lancamentos/lancamento-cadastro/lancamento-cadastro.component';
 
 registerLocaleData(localePt);
 
@@ -35,7 +35,8 @@ registerLocaleData(localePt);
     LancamentosModule,
     PessoasModule,
     CoreModule,
-    ToastModule
+    ToastModule,
+    LancamentoRoutingModule
   ],
   providers: [
     LancamentoService,
@@ -44,10 +45,11 @@ registerLocaleData(localePt);
     MessageService,
     { provide: LOCALE_ID, useValue: 'pt'},
     {
-    provide: HTTP_INTERCEPTORS,
-    useClass: HttpsRequestInterceptor,
-    multi: true,
-    }],
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpsRequestInterceptor,
+      multi: true,
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {

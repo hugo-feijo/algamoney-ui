@@ -1,5 +1,3 @@
-import { RouterModule } from '@angular/router';
-import { SharedModule } from './../shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -8,6 +6,8 @@ import { FormsModule } from '@angular/forms';
 import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-cadastro.component';
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { LancamentoGridComponent } from './lancamento-grid/lancamento-grid.component';
+import { LancamentoRoutingModule } from './lancamentos-routing.module';
+import { SharedModule } from './../shared/shared.module';
 
 import { CurrencyMaskModule } from 'ng2-currency-mask';
 
@@ -32,7 +32,6 @@ import { ToastModule } from 'primeng/toast';
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule,
 
     BrowserAnimationsModule,
 
@@ -48,7 +47,9 @@ import { ToastModule } from 'primeng/toast';
 
     CurrencyMaskModule,
 
-    SharedModule
-  ]
+    SharedModule,
+    LancamentoRoutingModule
+  ],
+  exports: []
 })
 export class LancamentosModule { }

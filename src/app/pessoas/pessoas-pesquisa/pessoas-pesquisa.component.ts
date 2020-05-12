@@ -1,6 +1,8 @@
 import { PessoaService, PessoaFilter } from './../pessoa.service';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Subject } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-pessoas-pesquisa',
@@ -8,6 +10,7 @@ import { Title } from '@angular/platform-browser';
   styleUrls: ['./pessoas-pesquisa.component.css']
 })
 export class PessoasPesquisaComponent implements OnInit {
+
   totalRegistro = 0;
   pessoas = [];
   filtro = new PessoaFilter();

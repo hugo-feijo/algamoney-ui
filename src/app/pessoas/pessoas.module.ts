@@ -1,4 +1,4 @@
-import { RouterModule } from '@angular/router';
+import { PessoasRoutingModule } from './pessoas-routing.module';
 import { ToastModule } from 'primeng/toast';
 import { SharedModule } from './../shared/shared.module';
 import { FormsModule } from '@angular/forms';
@@ -26,7 +26,7 @@ import { CommonModule } from '@angular/common';
   imports: [
     CommonModule,
     FormsModule,
-    RouterModule,
+    PessoasRoutingModule,
 
     ButtonModule,
     InputTextModule,
