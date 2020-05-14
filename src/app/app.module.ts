@@ -1,3 +1,4 @@
+import { SecurityModule } from './security/security.module';
 import { LancamentoRoutingModule } from './lancamentos/lancamentos-routing.module';
 import { PessoaCadastroComponent } from './pessoas/pessoa-cadastro/pessoa-cadastro.component';
 import { RouterModule } from '@angular/router';
@@ -31,10 +32,11 @@ registerLocaleData(localePt);
     BrowserModule,
     HttpClientModule,
 
-    LancamentosModule,
-    PessoasModule,
     CoreModule,
     ToastModule,
+    LancamentosModule,
+    PessoasModule,
+    SecurityModule,
     AppRoutingModule
   ],
   providers: [
