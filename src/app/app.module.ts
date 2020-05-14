@@ -29,14 +29,13 @@ registerLocaleData(localePt);
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     HttpClientModule,
 
     LancamentosModule,
     PessoasModule,
     CoreModule,
     ToastModule,
-    LancamentoRoutingModule
+    AppRoutingModule
   ],
   providers: [
     LancamentoService,

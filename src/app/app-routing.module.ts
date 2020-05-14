@@ -7,7 +7,7 @@ import { PaginaNaoEncontradaComponent } from './core/pagina-nao-encontrada.compo
 const routes: Routes = [
   { path: '', redirectTo: 'pessoa', pathMatch: 'full'},
   { path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent},
-  //{ path: '**', redirectTo: 'pagina-nao-encontrada'}
+  { path: '**', redirectTo: 'pagina-nao-encontrada'}
 ];
 
 @NgModule({
