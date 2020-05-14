@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, Input } from '@angular/core';
 
 @Component({
@@ -7,5 +8,11 @@ import { Component, Input } from '@angular/core';
 })
 export class AppComponent {
 
+  constructor(
+    private router: Router
+  ) { }
 
+  exibindoNavbar() {
+    return this.router.url !== '/login';
+  }
 }
