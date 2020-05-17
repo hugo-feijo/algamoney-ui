@@ -1,7 +1,7 @@
 import { MessageService } from 'primeng/api';
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpEvent, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
+import { Observable, throwError, config } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 
 @Injectable()
@@ -10,10 +10,15 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
   constructor(private messageService: MessageService) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const dupReq = req.clone({
-      headers: req.headers.set('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='),
-      setHeaders: {'Content-Type': 'application/json'}
-    });
+    let dupReq;
+    if(!req.params.has('overwrite')) {
+       dupReq = req.clone({
+        headers: req.headers.set('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='),
+        setHeaders: {'Content-Type': 'application/json'}
+      });
+    } else {
+      dupReq = req.clone();
+    }
     return next.handle(dupReq)
     .pipe(
       retry(2),

@@ -1,4 +1,4 @@
-import { SecurityModule } from './security/security.module';
+import { SecurityModule } from './seguranca/security.module';
 import { LancamentoRoutingModule } from './lancamentos/lancamentos-routing.module';
 import { PessoaCadastroComponent } from './pessoas/pessoa-cadastro/pessoa-cadastro.component';
 import { RouterModule } from '@angular/router';
