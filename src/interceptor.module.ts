@@ -34,6 +34,10 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
         if (error.status >= 400 && error.status <= 499 && error.error[0]) {
           errorMessage.detail = error.error[0].mensagemDesenvolvedor;
         }
+        if (error.error.error === 'invalid_grant') {
+          errorMessage.summary = 'Erro no login';
+          errorMessage.detail = 'Usuario ou senha incorretos';
+        }
         this.messageService.add({ key: 'errorHttp', severity: 'error', summary: errorMessage.summary, detail: errorMessage.detail });
         return throwError(errorMessage);
       })
