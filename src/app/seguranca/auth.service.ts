@@ -1,3 +1,4 @@
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from './../../environments/environment';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
@@ -10,8 +11,14 @@ import { take } from 'rxjs/operators';
 export class AuthService {
 
   oauthTokenUrl = environment.API + 'oauth/token';
+  jwtPayload: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private jwtHelper: JwtHelperService
+  ) {
+    this.carregarToken();
+  }
 
   login(usuario: string, senha: string): Observable<any> {
 
@@ -26,5 +33,18 @@ export class AuthService {
     params = params.set('overwrite', 'true');
 
     return this.http.post(this.oauthTokenUrl, body, { headers, params }).pipe(take(1));
+  }
+
+  armazenarToken(token: string) {
+    this.jwtPayload = this.jwtHelper.decodeToken(token);
+    localStorage.setItem('token', token);
+  }
+
+  private carregarToken() {
+    const token = localStorage.getItem('token');
+
+    if(token) {
+      this.armazenarToken(token);
+    }
   }
 }

@@ -1,6 +1,7 @@
 <div class="costum-container">
   <form (ngSubmit)="login(usuario.value, senha.value)">
     <div class="p-grid p-dir-col">
+      {{auth.jwtPayload | json }}
       <div class="p-col-6 p-col-align-center">
         <h1>Login</h1>
       </div>

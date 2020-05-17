@@ -1,3 +1,4 @@
+import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
 import { SecurityModule } from './seguranca/security.module';
 import { LancamentoRoutingModule } from './lancamentos/lancamentos-routing.module';
 import { PessoaCadastroComponent } from './pessoas/pessoa-cadastro/pessoa-cadastro.component';
@@ -44,6 +45,8 @@ registerLocaleData(localePt);
     PessoaService,
     CategoriaService,
     MessageService,
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService,
     { provide: LOCALE_ID, useValue: 'pt'},
     {
       provide: HTTP_INTERCEPTORS,

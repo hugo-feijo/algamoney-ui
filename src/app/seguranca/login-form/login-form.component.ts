@@ -15,7 +15,7 @@ export class LoginFormComponent implements OnInit {
 
   login(login: string, senha: string) {
     this.auth.login(login, senha).subscribe(
-      success => console.log(success),
+      success => this.auth.armazenarToken(success.access_token),
       error => console.log(error)
     );
   }
