@@ -1,8 +1,5 @@
-import { JwtHelperService, JWT_OPTIONS } from '@auth0/angular-jwt';
+import { JwtHelperService, JWT_OPTIONS, JwtModule } from '@auth0/angular-jwt';
 import { SecurityModule } from './seguranca/security.module';
-import { LancamentoRoutingModule } from './lancamentos/lancamentos-routing.module';
-import { PessoaCadastroComponent } from './pessoas/pessoa-cadastro/pessoa-cadastro.component';
-import { RouterModule } from '@angular/router';
 import { CategoriaService } from './categorias/categoria.service';
 import { ToastModule } from 'primeng/toast';
 import { PessoaService } from './pessoas/pessoa.service';
@@ -23,6 +20,10 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LancamentoService } from './lancamentos/lancamento.service';
 import { MessageService } from 'primeng/api';
 
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
+
 registerLocaleData(localePt);
 
 @NgModule({
@@ -38,7 +39,15 @@ registerLocaleData(localePt);
     LancamentosModule,
     PessoasModule,
     SecurityModule,
-    AppRoutingModule
+    AppRoutingModule,
+
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:80'],
+        blacklistedRoutes: []
+      }
+    })
   ],
   providers: [
     LancamentoService,

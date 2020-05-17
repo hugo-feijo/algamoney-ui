@@ -5,7 +5,7 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Title } from '@angular/platform-browser';
-
+import { JwtModule } from '@auth0/angular-jwt';
 
 
 
@@ -16,7 +16,9 @@ import { Title } from '@angular/platform-browser';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+
+
   ],
   providers: [Title, AuthService],
   exports: [NavbarComponent]

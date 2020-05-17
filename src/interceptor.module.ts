@@ -1,3 +1,4 @@
+import { AuthService } from './app/seguranca/auth.service';
 import { MessageService } from 'primeng/api';
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpEvent, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
@@ -7,13 +8,17 @@ import { retry, catchError } from 'rxjs/operators';
 @Injectable()
 export class HttpsRequestInterceptor implements HttpInterceptor {
 
-  constructor(private messageService: MessageService) {}
+  constructor(
+    private messageService: MessageService,
+    private auth: AuthService
+  ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let dupReq;
+    console.log(req);
     if (!req.params.has('overwrite')) {
        dupReq = req.clone({
-        headers: req.headers.set('Authorization', 'Basic YWRtaW5AYWxnYW1vbmV5LmNvbTphZG1pbg=='),
+        headers: req.headers.set('Authorization', `BEARER ${this.auth.getToken}`),
         setHeaders: {'Content-Type': 'application/json'}
       });
     } else {
