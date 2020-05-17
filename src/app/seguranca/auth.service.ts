@@ -27,7 +27,6 @@ export class AuthService {
       'Content-Type': 'application/x-www-form-urlencoded'
     });
     const body = `username=${usuario}&password=${senha}&grant_type=password`;
-    console.log(body);
 
     let params = new HttpParams();
     params = params.set('overwrite', 'true');
@@ -43,7 +42,7 @@ export class AuthService {
   private carregarToken() {
     const token = localStorage.getItem('token');
 
-    if(token) {
+    if (token) {
       this.armazenarToken(token);
     }
   }

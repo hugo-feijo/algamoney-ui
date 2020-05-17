@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AuthService } from './../auth.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -8,14 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginFormComponent implements OnInit {
 
-  constructor(private auth: AuthService) { }
+  constructor(
+    private auth: AuthService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
   }
 
   login(login: string, senha: string) {
     this.auth.login(login, senha).subscribe(
-      success => this.auth.armazenarToken(success.access_token),
+      success => {
+        this.auth.armazenarToken(success.access_token);
+        this.router.navigate(['/lancamento']);
+      },
       error => console.log(error)
     );
   }

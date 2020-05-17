@@ -1,17 +1,16 @@
 <div class="costum-container">
-  <form (ngSubmit)="login(usuario.value, senha.value)">
+  <form #loginForm="ngForm" (ngSubmit)="login(usuario.value, senha.value); loginForm.reset(); ">
     <div class="p-grid p-dir-col">
-      {{auth.jwtPayload | json }}
       <div class="p-col-6 p-col-align-center">
         <h1>Login</h1>
       </div>
 
       <div class="p-col-6 p-col-align-center">
-        <input type="text" pInputText placeholder="Login" class="inputFull" name="usuario" ngModel #usuario="ngModel">
+        <input type="text" pInputText placeholder="Login" class="inputFull" name="usuario" ngModel #usuario="ngModel" required>
       </div>
 
       <div class="p-col-6 p-col-align-center">
-        <input type="text" pPassword [feedback]=false [showPassword]=false placeholder="Senha" class="inputFull" name="senha" ngModel #senha="ngModel">
+        <input type="text" pPassword [feedback]=false [showPassword]=false placeholder="Senha" class="inputFull" name="senha" ngModel #senha="ngModel" required minlength="4">
       </div>
 
       <div class="p-col-6 p-col-align-center">
