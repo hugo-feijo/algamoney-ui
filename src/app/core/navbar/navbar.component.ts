@@ -1,3 +1,4 @@
+import { AuthService } from './../../seguranca/auth.service';
 import { Component, Output, EventEmitter } from '@angular/core';
 
 @Component({
@@ -8,4 +9,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 export class NavbarComponent  {
   exibindoMenu = false;
 
+  constructor(private auth: AuthService) {}
+
+  usuario = this.auth.jwtPayload?.nome;
 }
