@@ -23,6 +23,7 @@ export class AuthService {
   login(usuario: string, senha: string): Observable<any> {
 
     const headers = new HttpHeaders({
+      // tslint:disable-next-line: object-literal-key-quotes
       'Authorization': 'Basic YW5ndWxhcjpAbmd1bEByMA==',
       'Content-Type': 'application/x-www-form-urlencoded'
     });
@@ -49,5 +50,9 @@ export class AuthService {
     if (token) {
       this.armazenarToken(token);
     }
+  }
+
+  temPermissao(permissao: string) {
+    return this.jwtPayload && this.jwtPayload.authorities.includes(permissao);
   }
 }
