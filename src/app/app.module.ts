@@ -21,7 +21,7 @@ import { LancamentoService } from './lancamentos/lancamento.service';
 import { MessageService } from 'primeng/api';
 
 export function tokenGetter() {
-  return localStorage.getItem('token');
+  return localStorage.getItem('access_token');
 }
 
 registerLocaleData(localePt);
@@ -44,7 +44,7 @@ registerLocaleData(localePt);
     JwtModule.forRoot({
       config: {
         tokenGetter: tokenGetter,
-        whitelistedDomains: ['localhost:80'],
+        whitelistedDomains: ['localhost:8080'],
         blacklistedRoutes: []
       }
     })

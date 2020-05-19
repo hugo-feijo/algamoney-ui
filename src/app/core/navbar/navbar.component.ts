@@ -9,9 +9,18 @@ import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 export class NavbarComponent implements OnInit  {
   exibindoMenu = false;
 
-  constructor(private auth: AuthService) {}
+  constructor(public auth: AuthService) {}
 
   usuario = this.auth.jwtPayload?.nome;
 
   ngOnInit() {}
+
+  novoAccessToken() {
+    this.auth.obterNovoAccessToken().subscribe(
+      success => {
+        this.auth.armazenarToken(success.access_token);
+        console.log('Criando novo access token');
+      }
+    );
+  }
 }
