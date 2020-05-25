@@ -41,13 +41,13 @@ registerLocaleData(localePt);
     SecurityModule,
     AppRoutingModule,
 
-    JwtModule.forRoot({
-      config: {
-        tokenGetter: tokenGetter,
-        whitelistedDomains: ['localhost:8080'],
-        blacklistedRoutes: []
-      }
-    })
+    // JwtModule.forRoot({
+    //   config: {
+    //     tokenGetter: tokenGetter,
+    //     whitelistedDomains: ['localhost:8080'],
+    //     blacklistedRoutes: []
+    //   }
+    // })
   ],
   providers: [
     LancamentoService,

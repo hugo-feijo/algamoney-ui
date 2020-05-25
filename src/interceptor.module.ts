@@ -2,8 +2,9 @@ import { AuthService } from './app/seguranca/auth.service';
 import { MessageService } from 'primeng/api';
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpEvent, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, config } from 'rxjs';
-import { retry, catchError } from 'rxjs/operators';
+import { Observable, throwError, BehaviorSubject, observable, } from 'rxjs';
+import { retry, catchError, take, mergeMap, switchMap, finalize, filter } from 'rxjs/operators';
+import { JsonPipe } from '@angular/common';
 
 @Injectable()
 export class HttpsRequestInterceptor implements HttpInterceptor {
@@ -12,40 +13,85 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
     private messageService: MessageService,
     private auth: AuthService
   ) {}
+  private tokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  private isRefreshingToken = false;
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    let dupReq;
-    console.log(req);
     if (!req.params.has('overwrite')) {
-       dupReq = req.clone({
-        headers: req.headers.set('Authorization', `BEARER ${this.auth.getToken}`),
-        setHeaders: {'Content-Type': 'application/json'}
-      });
-    } else {
-      dupReq = req.clone();
+        const token = localStorage.getItem('access_token');
+        req = this.addToken(req, token);
     }
-    return next.handle(dupReq)
+
+    return next.handle(req)
     .pipe(
-      retry(2),
       catchError((error: HttpErrorResponse) => {
-        const errorMessage = {summary: '', detail: ''};
-        if (error.error instanceof ErrorEvent) {
-          errorMessage.summary = 'Erro na requisição';
-          errorMessage.detail = error.error.message;
-        } else {
-          errorMessage.summary = 'Erro no servidor';
-          errorMessage.detail = `Erro ao processar serviço remoto, tente novamente.`;
-        }
-        if (error.status >= 400 && error.status <= 499 && error.error[0]) {
-          errorMessage.detail = error.error[0].mensagemDesenvolvedor;
-        }
-        if (error.error.error === 'invalid_grant') {
-          errorMessage.summary = 'Erro no login';
-          errorMessage.detail = 'Usuario ou senha incorretos';
-        }
-        this.messageService.add({ key: 'errorHttp', severity: 'error', summary: errorMessage.summary, detail: errorMessage.detail });
-        return throwError(errorMessage);
-      })
+        return this.handleError(error, req, next);
+      }),
+    retry(2)
     );
   }
+
+  handleError(error: HttpErrorResponse, req: HttpRequest<any>, next: HttpHandler) {
+    const errorMessage = { summary: '', detail: '' };
+    if (error.error instanceof ErrorEvent) {
+      errorMessage.summary = 'Erro na requisição';
+      errorMessage.detail = error.error.message;
+    } else {
+      errorMessage.summary = 'Erro no servidor';
+      errorMessage.detail = `Erro ao processar serviço remoto, tente novamente.`;
+    }
+    if (error.status >= 400 && error.status <= 499 && error.error[0]) {
+      errorMessage.detail = error.error[0].mensagemDesenvolvedor;
+    }
+    if (error.error.error === 'invalid_grant') {
+      errorMessage.summary = 'Erro no login';
+      errorMessage.detail = 'Usuario ou senha incorretos';
+    }
+    if (error.status === 401 && error.error.error === 'invalid_token') {
+      return this.handleUnauthorized(req, next);
+    }
+    this.messageService.add({ key: 'errorHttp', severity: 'error', summary: errorMessage.summary, detail: errorMessage.detail });
+    return throwError(errorMessage);
+  }
+
+  handleUnauthorized(req: HttpRequest<any>, next: HttpHandler): Observable<any> {
+    if (!this.isRefreshingToken) {
+      this.isRefreshingToken = true;
+      this.tokenSubject.next(null);
+      return this.auth.obterNovoAccessToken().pipe(
+        switchMap((newToken: any) => {
+          this.isRefreshingToken = false;
+          if (newToken) {
+            this.tokenSubject.next(newToken);
+            this.auth.armazenarToken(newToken.access_token);
+            return next.handle(this.addToken(req, newToken.access_token));
+          } else {
+            this.auth.doLogout();
+            return throwError('');
+
+          }
+        })
+          , finalize(() => {
+            this.isRefreshingToken = false;
+          })
+        );
+    } else {
+      return this.tokenSubject
+        .pipe(
+          filter(token => token != null)
+          , take(1)
+          , switchMap(token => {
+            return next.handle(this.addToken(req, token));
+          })
+        );
+    }
+  }
+
+  addToken(req: HttpRequest<any>, token: string): HttpRequest<any> {
+    return req.clone({
+      headers: req.headers.set('Authorization', `BEARER ${token}`),
+      setHeaders: { 'Content-Type': 'application/json' }
+    });
+  }
+
 }

@@ -32,11 +32,11 @@ export class PessoaGridComponent {
         this.addToast();
       }
       );
-    }
+  }
 
-    alterarStatus(pessoa: any) {
-      this.pessoaService.alterarStatus(pessoa).subscribe(
-        success => {
+  alterarStatus(pessoa: any) {
+    this.pessoaService.alterarStatus(pessoa).subscribe(
+      success => {
         this.pagina.emit(this.event.first / this.event.rows);
         this.detailToast = `Pessoa ${pessoa.ativo === false ? 'ativado' : 'inativado'} com sucesso!`;
         this.addToast();

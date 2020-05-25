@@ -7,14 +7,14 @@ import { Component, Output, EventEmitter, OnInit } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit  {
-  exibindoMenu = false;
 
   constructor(public auth: AuthService) {}
+  exibindoMenu = false;
 
   usuario = this.auth.jwtPayload?.nome;
+  valido = this.auth.isAccessTokenInvalido(localStorage.getItem('access_token'));
 
   ngOnInit() {}
-
   novoAccessToken() {
     this.auth.obterNovoAccessToken().subscribe(
       success => {

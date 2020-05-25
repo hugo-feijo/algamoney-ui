@@ -3,7 +3,7 @@ import { environment } from './../../environments/environment';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { take } from 'rxjs/operators';
+import { take, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +16,12 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private jwtHelper: JwtHelperService
-  ) {
-    this.carregarToken();
+    ) {
+      this.carregarToken();
+    }
+
+  doLogout() {
+    throw new Error("Method not implemented.");
   }
 
   login(usuario: string, senha: string): Observable<any> {
@@ -44,12 +48,18 @@ export class AuthService {
     params = params.set('overwrite', 'true');
 
     const body = 'grant_type=refresh_token';
-    return this.http.post(this.oauthTokenUrl, body, { headers, params, withCredentials: true}).pipe(take(1));
+
+    return this.http.post(this.oauthTokenUrl, body, { headers, params, withCredentials: true})
+    .pipe(take(1));
   }
 
-  armazenarToken(access_token: string) {
-    this.jwtPayload = this.jwtHelper.decodeToken(access_token);
-    localStorage.setItem('access_token', access_token);
+  armazenarToken(accessToken: string) {
+    this.jwtPayload = this.jwtHelper.decodeToken(accessToken);
+    localStorage.setItem('access_token', accessToken);
+  }
+
+  isAccessTokenInvalido(token: string) {
+    return !token || this.jwtHelper.isTokenExpired(token);
   }
 
   get getToken() {
