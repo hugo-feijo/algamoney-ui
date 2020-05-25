@@ -15,12 +15,5 @@ export class NavbarComponent implements OnInit  {
   valido = this.auth.isAccessTokenInvalido(localStorage.getItem('access_token'));
 
   ngOnInit() {}
-  novoAccessToken() {
-    this.auth.obterNovoAccessToken().subscribe(
-      success => {
-        this.auth.armazenarToken(success.access_token);
-        console.log('Criando novo access token');
-      }
-    );
-  }
+
 }

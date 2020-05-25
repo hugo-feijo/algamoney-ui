@@ -1,3 +1,4 @@
+import { AuthService } from './../../seguranca/auth.service';
 import { PessoaService, PessoaFilter } from './../pessoa.service';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
@@ -15,7 +16,11 @@ export class PessoasPesquisaComponent implements OnInit {
   pessoas = [];
   filtro = new PessoaFilter();
 
-  constructor(private pessoaService: PessoaService, private title: Title) {}
+  constructor(
+    private pessoaService: PessoaService,
+    private title: Title,
+    public auth: AuthService
+  ) {}
 
   ngOnInit() {
     this.title.setTitle('Pesquisa de pessoa');

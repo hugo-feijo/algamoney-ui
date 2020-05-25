@@ -1,3 +1,4 @@
+import { AuthService } from './../../seguranca/auth.service';
 import { LancamentoService } from './../lancamento.service';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { LazyLoadEvent, MessageService } from 'primeng/api';
@@ -16,8 +17,11 @@ export class LancamentoGridComponent {
   lancamento: any;
   event: LazyLoadEvent;
 
-  constructor(private lancamentoService: LancamentoService,
-              private messageService: MessageService) {}
+  constructor(
+    private lancamentoService: LancamentoService,
+    private messageService: MessageService,
+    public auth: AuthService
+  ) {}
 
   aoMudarPagina(eventLazy: LazyLoadEvent) {
     this.event = eventLazy;

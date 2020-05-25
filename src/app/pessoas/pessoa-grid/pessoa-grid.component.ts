@@ -1,3 +1,4 @@
+import { AuthService } from './../../seguranca/auth.service';
 import { PessoaService } from './../pessoa.service';
 import { LazyLoadEvent, MessageService } from 'primeng/api';
 import { Component, Input, Output, EventEmitter } from '@angular/core';
@@ -9,7 +10,11 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 })
 export class PessoaGridComponent {
 
-  constructor(private messageService: MessageService, private pessoaService: PessoaService) {}
+  constructor(
+    private messageService: MessageService,
+    private pessoaService: PessoaService,
+    public auth: AuthService
+  ) {}
 
   pessoa: any;
   event: LazyLoadEvent;

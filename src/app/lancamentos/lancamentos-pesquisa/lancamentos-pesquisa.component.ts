@@ -1,3 +1,4 @@
+import { AuthService } from './../../seguranca/auth.service';
 import { LancamentoService, LancamentoFiltro } from './../lancamento.service';
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
@@ -14,7 +15,11 @@ export class LancamentosPesquisaComponent implements OnInit {
   lancamentos = [];
   br: any;
 
-  constructor(private lancamentoService: LancamentoService, private title: Title) { }
+  constructor(
+    private lancamentoService: LancamentoService,
+    private title: Title,
+    public auth: AuthService
+  ) {}
 
 
   ngOnInit() {

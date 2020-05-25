@@ -29,7 +29,8 @@
       </div>
 
       <div class="p-col-12">
-        <a pButton routerLink="/lancamento/novo" label="Novo Lançamento"></a>
+        <button type="button" pButton routerLink="/lancamento/novo" label="Novo Lançamento"
+        [disabled]="!auth.temPermissao('ROLE_CADASTRAR_LANCAMENTO')"></button>
       </div>
     </div>
 </div>

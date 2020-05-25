@@ -24,15 +24,16 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
 
     return next.handle(req)
     .pipe(
+      retry(2),
       catchError((error: HttpErrorResponse) => {
         return this.handleError(error, req, next);
-      }),
-    retry(2)
+      })
     );
   }
 
   handleError(error: HttpErrorResponse, req: HttpRequest<any>, next: HttpHandler) {
     const errorMessage = { summary: '', detail: '' };
+
     if (error.error instanceof ErrorEvent) {
       errorMessage.summary = 'Erro na requisição';
       errorMessage.detail = error.error.message;
@@ -40,16 +41,28 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
       errorMessage.summary = 'Erro no servidor';
       errorMessage.detail = `Erro ao processar serviço remoto, tente novamente.`;
     }
-    if (error.status >= 400 && error.status <= 499 && error.error[0]) {
-      errorMessage.detail = error.error[0].mensagemDesenvolvedor;
+
+    if (error.status >= 400 && error.status <= 499 ) {
+      if (error.error[0]) {
+        errorMessage.detail = error.error[0].mensagemDesenvolvedor;
+      } else if (error.error.error_description) {
+        errorMessage.detail = error.error.error_description;
+      }
     }
+
+    if (error.status === 403) {
+      errorMessage.detail = 'Você não tem permissão para executar esta ação';
+    }
+
     if (error.error.error === 'invalid_grant') {
       errorMessage.summary = 'Erro no login';
       errorMessage.detail = 'Usuario ou senha incorretos';
     }
+
     if (error.status === 401 && error.error.error === 'invalid_token') {
       return this.handleUnauthorized(req, next);
     }
+
     this.messageService.add({ key: 'errorHttp', severity: 'error', summary: errorMessage.summary, detail: errorMessage.detail });
     return throwError(errorMessage);
   }
@@ -58,6 +71,7 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
     if (!this.isRefreshingToken) {
       this.isRefreshingToken = true;
       this.tokenSubject.next(null);
+
       return this.auth.obterNovoAccessToken().pipe(
         switchMap((newToken: any) => {
           this.isRefreshingToken = false;
@@ -68,7 +82,6 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
           } else {
             this.auth.doLogout();
             return throwError('');
-
           }
         })
           , finalize(() => {
