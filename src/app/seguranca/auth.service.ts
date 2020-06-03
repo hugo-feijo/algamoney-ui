@@ -11,6 +11,7 @@ import { take, tap } from 'rxjs/operators';
 export class AuthService {
 
   oauthTokenUrl = environment.API + 'oauth/token';
+  revokeOauthTokenUrl = environment.API + 'tokens/revoke';
   jwtPayload: any;
 
   constructor(
@@ -21,7 +22,10 @@ export class AuthService {
     }
 
   doLogout() {
-    throw new Error('Method not implemented.');
+    this.http.delete(this.revokeOauthTokenUrl, { withCredentials: true }).pipe(take(1)).subscribe(s => console.log('remove success'));
+    localStorage.removeItem('access_token');
+    this.jwtPayload = null;
+
   }
 
   login(usuario: string, senha: string): Observable<any> {

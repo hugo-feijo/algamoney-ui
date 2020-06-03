@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { AuthService } from './../../seguranca/auth.service';
 import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 
@@ -8,7 +9,10 @@ import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit  {
 
-  constructor(public auth: AuthService) {}
+  constructor(
+    public auth: AuthService,
+    public router: Router
+  ) {}
   exibindoMenu = false;
 
   usuario = this.auth.jwtPayload?.nome;
@@ -16,4 +20,7 @@ export class NavbarComponent implements OnInit  {
 
   ngOnInit() {}
 
+  logout() {
+    this.auth.doLogout();
+  }
 }

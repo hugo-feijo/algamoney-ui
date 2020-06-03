@@ -10,7 +10,9 @@
             *ngIf="auth.temPermissao('ROLE_PESQUISAR_LANCAMENTO')"><a routerLink="/lancamento">Lançamentos</a></li>
           <li class="navbar-menuitem" routerLinkActive="ativo"
             *ngIf="auth.temPermissao('ROLE_PESQUISAR_PESSOA')"><a routerLink="/pessoa">Pessoas</a></li>
-          <li class="navbar-menuitem" routerLinkActive="ativo"><a routerLink="/login">Logout</a></li>
+          <li class="navbar-menuitem" routerLinkActive="ativo">
+            <a routerLink="/login" (click)="logout()">Logout</a>
+          </li>
         </ul>
       </div>
     </div>
