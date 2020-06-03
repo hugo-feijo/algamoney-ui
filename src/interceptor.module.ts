@@ -1,18 +1,20 @@
+import { Router } from '@angular/router';
 import { AuthService } from './app/seguranca/auth.service';
 import { MessageService } from 'primeng/api';
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpEvent, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError, BehaviorSubject, observable, } from 'rxjs';
-import { retry, catchError, take, mergeMap, switchMap, finalize, filter } from 'rxjs/operators';
-import { JsonPipe } from '@angular/common';
+import { Observable, throwError, BehaviorSubject} from 'rxjs';
+import { retry, catchError, take, switchMap, finalize, filter } from 'rxjs/operators';
 
 @Injectable()
 export class HttpsRequestInterceptor implements HttpInterceptor {
 
   constructor(
     private messageService: MessageService,
-    private auth: AuthService
+    private auth: AuthService,
+    private router: Router
   ) {}
+
   private tokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   private isRefreshingToken = false;
 
@@ -34,6 +36,9 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
   handleError(error: HttpErrorResponse, req: HttpRequest<any>, next: HttpHandler) {
     const errorMessage = { summary: '', detail: '' };
 
+    const errorTitle: string = error.error.error;
+    const errorDescription: string = error.error.error_description;
+
     if (error.error instanceof ErrorEvent) {
       errorMessage.summary = 'Erro na requisição';
       errorMessage.detail = error.error.message;
@@ -46,7 +51,7 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
       if (error.error[0]) {
         errorMessage.detail = error.error[0].mensagemDesenvolvedor;
       } else if (error.error.error_description) {
-        errorMessage.detail = error.error.error_description;
+        errorMessage.detail = errorDescription;
       }
     }
 
@@ -54,13 +59,27 @@ export class HttpsRequestInterceptor implements HttpInterceptor {
       errorMessage.detail = 'Você não tem permissão para executar esta ação';
     }
 
-    if (error.error.error === 'invalid_grant') {
+    if (errorTitle === 'invalid_grant') {
       errorMessage.summary = 'Erro no login';
       errorMessage.detail = 'Usuario ou senha incorretos';
     }
 
-    if (error.status === 401 && error.error.error === 'invalid_token') {
+    if (
+      error.status === 401 &&
+      errorTitle === 'invalid_token' &&
+      errorDescription.includes('Access token expired')
+    ) {
       return this.handleUnauthorized(req, next);
+    }
+
+    if (
+      error.status === 401 &&
+      errorTitle === 'invalid_token' &&
+      errorDescription.includes('Invalid refresh token')
+    ) {
+      errorMessage.summary = 'Usuário deslogado';
+      errorMessage.detail = 'Sua sessão expirou, realize o login novamente';
+      this.router.navigate(['/login']);
     }
 
     this.messageService.add({ key: 'errorHttp', severity: 'error', summary: errorMessage.summary, detail: errorMessage.detail });

@@ -12,7 +12,7 @@ export class NavbarComponent implements OnInit  {
   exibindoMenu = false;
 
   usuario = this.auth.jwtPayload?.nome;
-  valido = this.auth.isAccessTokenInvalido(localStorage.getItem('access_token'));
+  valido = this.auth.isAccessTokenInvalido();
 
   ngOnInit() {}
 

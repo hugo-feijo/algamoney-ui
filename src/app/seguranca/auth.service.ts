@@ -21,7 +21,7 @@ export class AuthService {
     }
 
   doLogout() {
-    throw new Error("Method not implemented.");
+    throw new Error('Method not implemented.');
   }
 
   login(usuario: string, senha: string): Observable<any> {
@@ -58,8 +58,8 @@ export class AuthService {
     localStorage.setItem('access_token', accessToken);
   }
 
-  isAccessTokenInvalido(token: string) {
-    return !token || this.jwtHelper.isTokenExpired(token);
+  isAccessTokenInvalido() {
+    return !localStorage.getItem('access_token') || this.jwtHelper.isTokenExpired(localStorage.getItem('access_token'));
   }
 
   get getToken() {
@@ -67,10 +67,10 @@ export class AuthService {
   }
 
   private carregarToken() {
-    const access_token = localStorage.getItem('access_token');
+    const accessToken = localStorage.getItem('access_token');
 
-    if (access_token) {
-      this.armazenarToken(access_token);
+    if (accessToken) {
+      this.armazenarToken(accessToken);
     }
   }
 
