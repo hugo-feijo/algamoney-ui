@@ -14,7 +14,11 @@
       </div>
 
       <div class="p-col-6 p-col-align-center">
-        <button pButton type="submit" label="Login" class="inputFull"></button>
+        <button pButton type="submit" label="Login" class="inputFull" [disabled]="loginForm.invalid"></button>
+        <div class="p-grid p-dir-col p-justify-center">
+          <p-progressSpinner *ngIf="load" class="p-col p-col-align-center"></p-progressSpinner>
+
+        </div>
       </div>
     </div>
   </form>

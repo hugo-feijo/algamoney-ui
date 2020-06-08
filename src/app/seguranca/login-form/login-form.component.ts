@@ -13,17 +13,23 @@ export class LoginFormComponent implements OnInit {
     private auth: AuthService,
     private router: Router
   ) { }
+  load = false;
 
   ngOnInit(): void {
   }
 
   login(login: string, senha: string) {
+    this.load = true;
     this.auth.login(login, senha).subscribe(
       success => {
+        this.load = false;
         this.auth.armazenarToken(success.access_token);
         this.router.navigate(['/lancamento']);
       },
-      error => console.log(error)
+      error => {
+        this.load = false;
+        console.log(error);
+      }
     );
   }
 }
