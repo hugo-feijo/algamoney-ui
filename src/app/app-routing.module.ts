@@ -6,6 +6,14 @@ import { PaginaNaoEncontradaComponent } from './core/pagina-nao-encontrada.compo
 
 
 const routes: Routes = [
+  {
+    path: 'lancamento',
+    loadChildren: () => import('./lancamentos/lancamentos.module').then(l => l.LancamentosModule)
+  },
+  {
+    path: 'pessoa',
+    loadChildren: () => import('./pessoas/pessoas.module').then(p => p.PessoasModule)
+  },
   { path: '', redirectTo: 'login', pathMatch: 'full'},
   { path: 'nao-autorizado', component: NaoAutorizadoComponent},
   { path: 'pagina-nao-encontrada', component: PaginaNaoEncontradaComponent},

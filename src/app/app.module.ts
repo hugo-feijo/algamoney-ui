@@ -14,8 +14,6 @@ import localePt from '@angular/common/locales/pt';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { LancamentosModule } from './lancamentos/lancamentos.module';
-import { PessoasModule } from './pessoas/pessoas.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LancamentoService } from './lancamentos/lancamento.service';
 import { MessageService } from 'primeng/api';
@@ -36,27 +34,20 @@ registerLocaleData(localePt);
 
     CoreModule,
     ToastModule,
-    LancamentosModule,
-    PessoasModule,
     SecurityModule,
     AppRoutingModule,
-
-    // JwtModule.forRoot({
-    //   config: {
-    //     tokenGetter: tokenGetter,
-    //     whitelistedDomains: ['localhost:8080'],
-    //     blacklistedRoutes: []
-    //   }
-    // })
   ],
   providers: [
     LancamentoService,
     PessoaService,
     CategoriaService,
     MessageService,
+
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     JwtHelperService,
+
     { provide: LOCALE_ID, useValue: 'pt'},
+
     {
       provide: HTTP_INTERCEPTORS,
       useClass: HttpsRequestInterceptor,
